@@ -1,12 +1,2 @@
-# Uncomment this line to define a global platform for your project
-# platform :ios, "6.0"
-
-pod 'BaseModel'
-
-
-# target "GenericGameModel" do
-# end
-
-# target "GenericGameModelTests" do
-# end
-
+platform :ios
+podspec :path => "../GenericGameModel.podspec"

@@ -13,19 +13,19 @@ it simply add the following line to your Podfile:
 
     pod "GenericGameModel"
 
-If you don't want to use Cocoapods, you may instead simply copy all the files in the Classes/ folder into your project, but note that there is one requirement, the excellent BaseModel class by Nick Lockwood.
+If you don't want to use Cocoapods, you may instead simply copy all the files in the GenericGameModel/ folder into your project, but note that there is one requirement, the excellent BaseModel class by Nick Lockwood, which you may find here: https://github.com/nicklockwood/BaseModel
 
 
 ## Usage
 
-Subclass GGM_Model and GGM_View.
-
 To run the example project; clone the repo, and run `pod install` from the Example directory first.
+
+Generally speaking, you should subclass `GGM_BaseModel` and `GGM_View` (or any of its subclasses).
 
 
 ## Author
 
-Martin Grider, martin@abstractpuzzle.com
+Martin Grider -- http://chesstris.com -- http://twitter.com/livingtech
 
 
 ## License
