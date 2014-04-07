@@ -1,7 +1,12 @@
-pod "GenericGameModel", :path => "../"
+# Uncomment this line to define a global platform for your project
+# platform :ios, "6.0"
 
-target "Demo" do
-end
+pod 'BaseModel'
 
-target "DemoTests" do
-end
+
+# target "GenericGameModel" do
+# end
+
+# target "GenericGameModelTests" do
+# end
+
