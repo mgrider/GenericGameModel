@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
   s.name                  = "GenericGameModel"
   s.version               = "0.0.1"
   s.summary               = "A collection of classes for MVC 2D game development in iOS."
-  s.homepage              = "http://github.com/mgrider/GenericGameModel"
+  s.homepage              = "https://github.com/mgrider/GenericGameModel"
   s.license               = 'MIT'
   s.author                = "Martin Grider"
   s.source                = { :git => "https://github.com/mgrider/GenericGameModel.git", :tag => s.version.to_s }
