@@ -31,7 +31,7 @@
 - (NSDictionary *)closestDictToPoint:(CGPoint)point
 {
 	// loop through all the tiles to find the closest one
-	int x, y, closestX, closestY;
+	int x, y;//, closestX, closestY;
 	float distanceFromCenter, closestDistanceFromCenter = self.frame.size.width;
 	float halfheight = self.gridPixelHeight / 2.0f;
 	int dictCount = [viewDictInDrawOrderArray_ count];
@@ -47,8 +47,8 @@
 		distanceFromCenter = (fabs(view.center.x - point.x) / 2.0f) + fabs(view.center.y - point.y);
 		if (distanceFromCenter < closestDistanceFromCenter) {
 			NSLog(@"found a closer xy at %i,%i, distanceFromCenter was %f", x, y, distanceFromCenter);
-			closestX = x;
-			closestY = y;
+//			closestX = x;
+//			closestY = y;
 			closestDistanceFromCenter = distanceFromCenter;
 			closestDict = dict;
 			if (distanceFromCenter < halfheight) {
