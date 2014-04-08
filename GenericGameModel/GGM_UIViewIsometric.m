@@ -34,7 +34,7 @@
 	int x, y;//, closestX, closestY;
 	float distanceFromCenter, closestDistanceFromCenter = self.frame.size.width;
 	float halfheight = self.gridPixelHeight / 2.0f;
-	int dictCount = [viewDictInDrawOrderArray_ count];
+	int dictCount = (int)[viewDictInDrawOrderArray_ count];
 //	NSLog(@"halfheight = %f, dictCount = %i", halfheight, dictCount);
 	NSDictionary *dict;
 	NSDictionary *closestDict;
