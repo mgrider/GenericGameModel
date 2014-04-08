@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name                  = "GenericGameModel"
-  s.version               = "0.1.0"
+  s.version               = "0.0.1"
   s.summary               = "A collection of classes for MVC 2D game development in iOS."
   s.homepage              = "http://github.com/GenericGameModel"
   s.license               = 'MIT'

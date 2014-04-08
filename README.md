@@ -1,6 +1,6 @@
 # Generic Game Model
 
-The Generic Game Model (GGM) project seeks to provides relatively simple classes to facilitate easy creation of 2D games for iOS. GGM classes (`GGM_BaseModel` and `GGM_View` for example) should not generally be instantiated directly, but rather sublcassed by your project to meet your specific needs.
+The Generic Game Model (GGM) project seeks to provide relatively simple classes to facilitate easy creation of 2D games for iOS. GGM classes (`GGM_BaseModel` and `GGM_View` for example) should not generally be instantiated directly, but rather sublcassed by your project to meet your specific needs.
 
 [![Version](http://cocoapod-badges.herokuapp.com/v/GenericGameModel/badge.png)](http://cocoadocs.org/docsets/GenericGameModel)
 [![Platform](http://cocoapod-badges.herokuapp.com/p/GenericGameModel/badge.png)](http://cocoadocs.org/docsets/GenericGameModel)
