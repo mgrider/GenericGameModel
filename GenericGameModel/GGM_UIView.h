@@ -14,6 +14,7 @@ typedef enum {
 	GGM_GRIDTYPE_IMAGE,
 	GGM_GRIDTYPE_COLOR,
 	GGM_GRIDTYPE_TEXTLABEL,
+	GGM_GRIDTYPE_HEX,
 	GGM_GRIDTYPE_CUSTOM
 } GGM_GridType;
 
@@ -57,13 +58,14 @@ typedef enum {
 @property (assign) GGM_GridType gridType;
 
 
-- (void)handleTapAtPoint:(CGPoint)point;
 - (void)handleTapAtX:(int)x andY:(int)y;
 - (void)handleDrag:(UIPanGestureRecognizer*)sender;
 - (void)handleDragStart;
 - (void)handleDragEnd;
 - (void)handleDragContinue;
 - (BOOL)dragAllowedInDirection:(GGM_MoveDirection)direction fromX:(int)x andY:(int)y;
+
+- (CGPoint)coordinatePointForPixelPoint:(CGPoint)pixelPoint;
 
 - (UIView*)viewForX:(int)x andY:(int)y;
 

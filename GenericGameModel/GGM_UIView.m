@@ -8,6 +8,7 @@
 
 #import "GGM_UIView.h"
 #import "GGM_BaseModel.h"
+#import "GGM_HexView.h"
 #import <QuartzCore/QuartzCore.h>
 
 
@@ -33,7 +34,6 @@
 		[self.tapGestureRecognizer setNumberOfTapsRequired:1];
 		[self.tapGestureRecognizer setNumberOfTouchesRequired:1];
 		[self.tapGestureRecognizer setEnabled:YES];
-//		[self.tapGestureRecognizer requireGestureRecognizerToFail:doubleTapGestureRecognizer];
 		[self addGestureRecognizer:self.tapGestureRecognizer];
 	}
 	else if (self.tapGestureRecognizer != nil) {
@@ -45,18 +45,9 @@
 - (void)handleTap:(UITapGestureRecognizer *)sender
 {
 	CGPoint tapPoint = [sender locationInView:self];
-	[self handleTapAtPoint:tapPoint];
-}
-
-- (void)handleTapAtPoint:(CGPoint)tapPoint
-{
-	int x = tapPoint.x / self.gridPixelWidth;
-	int y = tapPoint.y / self.gridPixelHeight;
-
-//	int state = [self.game stateAtX:x andY:y];
-//
-//	NSLog(@"tap discovered at: %@, coords: {%i, %i} with state: %i", NSStringFromCGPoint(tapPoint), x, y, state);
-
+	CGPoint xyPoint = [self coordinatePointForPixelPoint:tapPoint];
+	int x = (int)xyPoint.x;
+	int y = (int)xyPoint.y;
 	[self handleTapAtX:x andY:y];
 }
 
@@ -91,8 +82,9 @@
 - (void)handleDrag:(UIPanGestureRecognizer*)sender
 {
 	CGPoint dragPoint = [sender locationInView:self];
-	int x = dragPoint.x / self.gridPixelWidth;
-	int y = dragPoint.y / self.gridPixelHeight;
+	CGPoint xyPoint = [self coordinatePointForPixelPoint:dragPoint];
+	int x = (int)xyPoint.x;
+	int y = (int)xyPoint.y;
 	if (sender.state == UIGestureRecognizerStateBegan) {
 		self.dragPointBegan = dragPoint;
 		self.isDragging = YES;
@@ -141,6 +133,28 @@
 }
 
 
+#pragma mark - getting X and Y from points
+
+- (CGPoint)coordinatePointForPixelPoint:(CGPoint)pixelPoint
+{
+	int x,y;
+	switch (self.gridType) {
+		case GGM_GRIDTYPE_HEX: {
+			y = pixelPoint.y / self.gridPixelHeight;
+			int pixelOffset = (self.gridPixelWidth / 2.0f) * (y - (self.game.gridWidth / 2));
+			x = (pixelPoint.x - pixelOffset) / self.gridPixelWidth;
+			break;
+		}
+		default: {
+			x = pixelPoint.x / self.gridPixelWidth;
+			y = pixelPoint.y / self.gridPixelHeight;
+			break;
+		}
+	}
+	return CGPointMake(x, y);
+}
+
+
 #pragma mark - convenience
 
 - (UIView*)viewForX:(int)x andY:(int)y
@@ -183,7 +197,26 @@
 
 - (void)refreshView:(UIView*)view positionAtX:(int)x andY:(int)y
 {
-	[view setFrame:CGRectMake((self.gridPixelWidth*x), (self.gridPixelHeight*y), self.gridPixelWidth, self.gridPixelHeight)];
+	switch (self.gridType) {
+		case GGM_GRIDTYPE_HEX: {
+			int numberOfFourths = (self.game.gridHeight * 3) + 1;
+			float fourthHeight = self.frame.size.height / numberOfFourths;
+			float pWidth = self.gridPixelWidth - 1.0f;
+			float pHeight = (fourthHeight * 4.0f) - 1.0f;
+			float pixelXOffset = (self.gridPixelWidth / 2.0f) * (y - (self.game.gridWidth / 2));
+			float startY = (fourthHeight * 3.0f) * y;
+			float startX = (self.gridPixelWidth * x) + pixelXOffset;
+			[view setFrame:CGRectMake(startX, startY, pWidth, pHeight)];
+
+//			float pixelOffset = (self.gridPixelWidth / 2.0f) * (y - (self.game.gridWidth / 2));
+//			[view setFrame:CGRectMake((self.gridPixelWidth*x)+pixelOffset, (self.gridPixelHeight*y), self.gridPixelWidth, self.gridPixelHeight)];
+			break;
+		}
+		default: {
+			[view setFrame:CGRectMake((self.gridPixelWidth*x), (self.gridPixelHeight*y), self.gridPixelWidth, self.gridPixelHeight)];
+			break;
+		}
+	}
 }
 
 - (void)refreshView:(UIView*)view stateAtX:(int)x andY:(int)y
@@ -201,6 +234,10 @@
 		}
 		case GGM_GRIDTYPE_TEXTLABEL: {
 			[(UILabel *)view setText:[self textForGameState:gameState]];
+			break;
+		}
+		case GGM_GRIDTYPE_HEX: {
+			[(GGM_HexView*)view setHexColor:[self colorForGameState:gameState]];
 			break;
 		}
 		case GGM_GRIDTYPE_CUSTOM: {
@@ -280,6 +317,10 @@
 			return label;
 		}
 
+		case GGM_GRIDTYPE_HEX: {
+			return [[GGM_HexView alloc] init];
+		}
+
 		case GGM_GRIDTYPE_CUSTOM: {
 			return [[UIView alloc] init];
 		}
@@ -321,9 +362,8 @@
 
 			gameState = [self.game stateAtX:x andY:y];
 			view = (UIView*)[self newSubviewForGameState:gameState];
-			[view setFrame:CGRectMake((self.gridPixelWidth*x), (self.gridPixelHeight*y), self.gridPixelWidth, self.gridPixelHeight)];
-
 			[self addSubview:view];
+			[self refreshView:view positionAtX:x andY:y];
 			[subarray insertObject:view atIndex:x];
 		}
 		[self.gridViewArray insertObject:subarray atIndex:y];
