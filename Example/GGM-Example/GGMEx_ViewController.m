@@ -8,12 +8,13 @@
 
 #import "GGMEx_ViewController.h"
 #import "GGMEx_Model.h"
-#import "GGMEx_SquareView.h"
+#import "GGMEx_View.h"
 
 
 @interface GGMEx_ViewController ()
 @property (nonatomic, strong) GGMEx_Model *gameModel;
-@property (nonatomic, strong) GGMEx_SquareView *gameView;
+@property (nonatomic, strong) GGMEx_View *gameView;
+@property (nonatomic, assign) GGM_GridType viewType;
 @end
 
 
@@ -25,6 +26,8 @@
     [super viewDidLoad];
 
 	// setup our GGM_BaseModel and GGM_View subclasses here
+	// default type is color
+	self.viewType = GGM_GRIDTYPE_COLOR;
 	[self setupGameModelAndViewFromGridSize];
 }
 
@@ -36,20 +39,29 @@
 	// new model
 	int size = self.gridSizeSlider.value;
 	self.gameModel = [GGMEx_Model instanceWithWidth:size andHeight:size];
-	[self.gameModel setStatesToCheckerboard];
 
-	// setup gameView
+	switch (self.viewType) {
+		case GGM_GRIDTYPE_TEXTLABEL: {
+			[self.gameModel setStatesForTextViews];
+			break;
+		}
+		default: {
+			[self.gameModel setStatesToCheckerboard];
+			break;
+		}
+	}
+
+	// remove any existing gameView
 	if (self.gameView != nil) {
 		// if we have an old one, let's clean it up
 		[self.gameView removeFromSuperview];
 	}
-
-	// (hard-coding this centered)
-	self.gameView = [[GGMEx_SquareView alloc] initWithFrame:CGRectMake(0.0f, ((1024.0f-768.0f) / 2.0f), 768.0f, 768.0f)];
+	// init the new gameView (hard-coding this centered)
+	self.gameView = [[GGMEx_View alloc] initWithFrame:CGRectMake(0.0f, ((1024.0f-768.0f) / 2.0f), 768.0f, 768.0f)];
 	[self.view addSubview:self.gameView];
 
 	// set the type of subviews
-	[self.gameView setGridType:GGM_GRIDTYPE_COLOR];
+	[self.gameView setGridType:self.viewType];
 
 	// setup the views
 	[self.gameView setGame:self.gameModel];
@@ -81,6 +93,32 @@
 - (IBAction)gridSizeSliderEndedChanging:(UISlider *)sender
 {
 	// update the game view
+	[self setupGameModelAndViewFromGridSize];
+}
+
+
+#pragma mark - dealing with grid type
+
+- (IBAction)typeSegmentedControlValueChanged:(UISegmentedControl *)sender
+{
+	switch (sender.selectedSegmentIndex) {
+		case 1: {
+			// hex
+			self.viewType = GGM_GRIDTYPE_HEX;
+			break;
+		}
+		case 2: {
+			// label
+			self.viewType = GGM_GRIDTYPE_TEXTLABEL;
+			break;
+		}
+		default:
+		case 0: {
+			// grid
+			self.viewType = GGM_GRIDTYPE_COLOR;
+			break;
+		}
+	}
 	[self setupGameModelAndViewFromGridSize];
 }
 

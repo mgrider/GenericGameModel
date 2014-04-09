@@ -22,6 +22,7 @@ typedef enum {
 
 
 - (void)setStatesToCheckerboard;
+- (void)setStatesForTextViews;
 
 
 @end

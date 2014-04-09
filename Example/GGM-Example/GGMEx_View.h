@@ -10,7 +10,7 @@
 #import "GGMEx_Model.h"
 
 
-@interface GGMEx_SquareView : GGM_UIView
+@interface GGMEx_View : GGM_UIView
 
 
 @property (strong) GGMEx_Model *game;

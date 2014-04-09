@@ -23,7 +23,7 @@
 		85EF376B18F337C000C63B7D /* GGM_UIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 85EF376618F337C000C63B7D /* GGM_UIView.m */; };
 		85EF376C18F337C000C63B7D /* GGM_UIViewIsometric.m in Sources */ = {isa = PBXBuildFile; fileRef = 85EF376818F337C000C63B7D /* GGM_UIViewIsometric.m */; };
 		85EF376F18F3384B00C63B7D /* GGMEx_Model.m in Sources */ = {isa = PBXBuildFile; fileRef = 85EF376E18F3384B00C63B7D /* GGMEx_Model.m */; };
-		85EF377218F3387E00C63B7D /* GGMEx_SquareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 85EF377118F3387E00C63B7D /* GGMEx_SquareView.m */; };
+		85EF377218F3387E00C63B7D /* GGMEx_View.m in Sources */ = {isa = PBXBuildFile; fileRef = 85EF377118F3387E00C63B7D /* GGMEx_View.m */; };
 		CADEDBADF68D4A8CAAA15EE2 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7699A3A69E5A4B929D2FFB3D /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -67,8 +67,8 @@
 		85EF376818F337C000C63B7D /* GGM_UIViewIsometric.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGM_UIViewIsometric.m; sourceTree = "<group>"; };
 		85EF376D18F3384B00C63B7D /* GGMEx_Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGMEx_Model.h; sourceTree = "<group>"; };
 		85EF376E18F3384B00C63B7D /* GGMEx_Model.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGMEx_Model.m; sourceTree = "<group>"; };
-		85EF377018F3387E00C63B7D /* GGMEx_SquareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGMEx_SquareView.h; sourceTree = "<group>"; };
-		85EF377118F3387E00C63B7D /* GGMEx_SquareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGMEx_SquareView.m; sourceTree = "<group>"; };
+		85EF377018F3387E00C63B7D /* GGMEx_View.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGMEx_View.h; sourceTree = "<group>"; };
+		85EF377118F3387E00C63B7D /* GGMEx_View.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGMEx_View.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,8 +139,8 @@
 				85EF374018F334C100C63B7D /* GGMEx_ViewController.m */,
 				85EF376D18F3384B00C63B7D /* GGMEx_Model.h */,
 				85EF376E18F3384B00C63B7D /* GGMEx_Model.m */,
-				85EF377018F3387E00C63B7D /* GGMEx_SquareView.h */,
-				85EF377118F3387E00C63B7D /* GGMEx_SquareView.m */,
+				85EF377018F3387E00C63B7D /* GGMEx_View.h */,
+				85EF377118F3387E00C63B7D /* GGMEx_View.m */,
 				85EF373118F334C100C63B7D /* Supporting Files */,
 			);
 			path = "GGM-Example";
@@ -321,7 +321,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				85EF376F18F3384B00C63B7D /* GGMEx_Model.m in Sources */,
-				85EF377218F3387E00C63B7D /* GGMEx_SquareView.m in Sources */,
+				85EF377218F3387E00C63B7D /* GGMEx_View.m in Sources */,
 				85EF376C18F337C000C63B7D /* GGM_UIViewIsometric.m in Sources */,
 				85EF376918F337C000C63B7D /* GGM_BaseModel.m in Sources */,
 				85EF373718F334C100C63B7D /* main.m in Sources */,

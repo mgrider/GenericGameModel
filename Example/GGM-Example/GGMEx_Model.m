@@ -29,5 +29,16 @@
 	}
 }
 
+- (void)setStatesForTextViews
+{
+	int state;
+	for (int y = 0; y < self.gridHeight; y++) {
+		for (int x = 0; x < self.gridWidth; x++) {
+			state = (y*self.gridHeight) + x;
+			[self setStateAtX:x andY:y toState:state];
+		}
+	}
+}
+
 
 @end
