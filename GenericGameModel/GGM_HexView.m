@@ -7,105 +7,111 @@
 //
 
 #import "GGM_HexView.h"
+#import <QuartzCore/QuartzCore.h>
 
 
 @implementation GGM_HexView
 
 
-#pragma mark - handling tap gestures
+#pragma mark - property setting
 
-- (void)handleTap:(UITapGestureRecognizer *)sender
+- (void)setHexColor:(UIColor *)hexColor
 {
-	CGPoint tapPoint = [sender locationInView:self];
-
-	int y = tapPoint.y / self.gridPixelHeight;
-
-	int pixelOffset = (self.gridPixelWidth / 2.0f) * (y - (self.game.gridWidth / 2));
-	int x = (tapPoint.x - pixelOffset) / self.gridPixelWidth;
-
-	int state = [self.game stateAtX:x andY:y];
-
-	NSLog(@"tap discovered at: %@, coords: {%i, %i} with state: %i", NSStringFromCGPoint(tapPoint), x, y, state);
-
-	[self handleTapAtX:x andY:y];
-}
-
-- (void)handleTapAtX:(int)x andY:(int)y
-{
-	// implement in subclasses
+	_hexColor = hexColor;
+	[self setBackgroundColor:[UIColor clearColor]];
+	[self setNeedsDisplay];
 }
 
 
-#pragma mark - drawing the hex grid
+#pragma mark - drawing
 
-- (void)setupInitialGridViewArray
+- (void)drawRect:(CGRect)rect
 {
-	self.gridPixelWidth = self.frame.size.width / self.game.gridWidth;
-	self.gridPixelHeight =  self.frame.size.height / self.game.gridHeight;
-	float pWidth = self.gridPixelWidth;
-	float pHeight = self.gridPixelHeight;
+	CGRect frame = self.frame;
 
-	self.gridViewArray = [NSMutableArray arrayWithCapacity:self.game.gridHeight];
+	//	NSLog(@"in drawRect... self.frame is %@", NSStringFromCGRect(frame));
+	//	CGContextRef context = UIGraphicsGetCurrentContext();
 
-	NSMutableArray *subarray;
-	int gameState = 0;
-	UIView *view;
-	float pixelOffset;
-	for (int y = 0; y < self.game.gridHeight; y++) {
+	UIBezierPath *polyPath = [UIBezierPath bezierPath];
+	[polyPath setLineWidth:0.0f];
 
-		subarray = [NSMutableArray arrayWithCapacity:self.game.gridWidth];
-		pixelOffset = (pWidth / 2.0f) * (y - (self.game.gridWidth / 2));
-//		NSLog(@"pixelOffset is %f for y%i", pixelOffset, y);
+	//// Shadow Declarations
+	//	UIColor* shadow = [UIColor blackColor];
+	//	CGSize shadowOffset = CGSizeMake(0.1, -0.1);
+	CGFloat shadowBlurRadius;
 
-		for (int x = 0; x < self.game.gridWidth; x++) {
-
-			gameState = [self.game stateAtX:x andY:y];
-			view = (UIView*)[self newSubviewForGameState:gameState];
-			[view setFrame:CGRectMake((pWidth*x)+pixelOffset, (pHeight*y), pWidth, pHeight)];
-
-			[self addSubview:view];
-			[subarray insertObject:view atIndex:x];
-		}
-		[self.gridViewArray insertObject:subarray atIndex:y];
+	if (_verticalPoints) {
+		shadowBlurRadius = frame.size.height / 10.0f;
+		float centerX = (frame.size.width/2.0f);
+		float firstThirdY = (frame.size.height/4.0f);
+		float secondThirdY = ((frame.size.height/4.0f)*3.0f);
+		[polyPath moveToPoint:CGPointMake(centerX, 0.0f)];
+		[polyPath addLineToPoint:CGPointMake(frame.size.width, firstThirdY)];
+		[polyPath addLineToPoint:CGPointMake(frame.size.width, secondThirdY)];
+		[polyPath addLineToPoint:CGPointMake(centerX, frame.size.height)];
+		[polyPath addLineToPoint:CGPointMake(0.0f, secondThirdY)];
+		[polyPath addLineToPoint:CGPointMake(0.0f, firstThirdY)];
+		[polyPath addLineToPoint:CGPointMake(centerX, 0.0f)];
 	}
-}
-
-// essentially, right now, this doesn't refresh view positions
-// (and that is the only way it differs from its superclass implementation)
-- (void)refreshViewPositionsAndStates
-{
-	int gameState = 0;
-	UIView *view;
-	UIImage *image;
-	for (int y = 0; y < self.game.gridHeight; y++)
-	{
-		for (int x = 0; x < self.game.gridWidth; x++)
-		{
-			gameState = [self.game stateAtX:x andY:y];
-			view = [[self.gridViewArray objectAtIndex:y] objectAtIndex:x];
-
-			switch (self.gridType) {
-				case GGM_GRIDTYPE_COLOR: {
-					[view setBackgroundColor:[self colorForGameState:gameState]];
-					break;
-				}
-				case GGM_GRIDTYPE_IMAGE: {
-					image = [self imageForGameState:gameState];
-					[(UIImageView*)view setImage:image];
-					break;
-				}
-				case GGM_GRIDTYPE_TEXTLABEL: {
-					[(UILabel *)view setText:[self textForGameState:gameState]];
-					break;
-				}
-				default: {
-					break;
-				}
-			}
-		}
+	else {
+		shadowBlurRadius = frame.size.width / 10.0f;
+		float centerY = (frame.size.height/2.0f);
+		float firstThirdX = (frame.size.width/4.0f);
+		float secondThirdX = ((frame.size.width/4.0f)*3.0f);
+		[polyPath moveToPoint:CGPointMake(0.0f, centerY)];
+		[polyPath addLineToPoint:CGPointMake(firstThirdX, 0.0f)];
+		[polyPath addLineToPoint:CGPointMake(secondThirdX, 0.0f)];
+		[polyPath addLineToPoint:CGPointMake(frame.size.width, centerY)];
+		[polyPath addLineToPoint:CGPointMake(secondThirdX, self.frame.size.height)];
+		[polyPath addLineToPoint:CGPointMake(firstThirdX, self.frame.size.height)];
+		[polyPath addLineToPoint:CGPointMake(0.0f, centerY)];
 	}
+
+	[polyPath closePath];
+
+	//	CGContextSaveGState(context);
+	//	CGContextSetShadowWithColor(context, shadowOffset, shadowBlurRadius, shadow.CGColor);
+
+	[_hexColor setFill];
+	[polyPath fill];
+
+	//	CGContextRestoreGState(context);
 }
 
+
+#pragma mark - init
+
+- (void)setup
+{
+	// Initialization code
+	_hexColor = [UIColor blackColor];
+	_verticalPoints = YES;
+	self.backgroundColor = [UIColor clearColor];
+	[self setClipsToBounds:NO];
+}
+
+- (void)awakeFromNib
+{
+	[self setup];
+}
+
+- (id)init
+{
+	self = [super init];
+	if (self) {
+		[self setup];
+	}
+	return self;
+}
+
+- (id)initWithFrame:(CGRect)frame
+{
+	self = [super initWithFrame:frame];
+	if (self) {
+		[self setup];
+	}
+	return self;
+}
 
 
 @end

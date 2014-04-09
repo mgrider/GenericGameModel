@@ -12,4 +12,8 @@
 @interface GGM_HexView : GGM_UIView
 
 
+@property (strong, nonatomic) UIColor *hexColor;
+@property (assign, nonatomic) BOOL verticalPoints;
+
+
 @end
