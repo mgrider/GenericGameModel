@@ -17,6 +17,7 @@
 @synthesize game = _game;
 @synthesize recognizesTaps = _recognizesTaps;
 @synthesize recognizesDrags = _recognizesDrags;
+@synthesize recognizesLongPress = _recognizesLongPress;
 
 
 #pragma mark - tap touch detection
@@ -103,6 +104,7 @@
 	}
 	else {
 		self.dragPointCurrent = dragPoint;
+		// TODO: fix this so that subclasses get notified about dragContinue continuously if they want
 		if (x != self.dragX || y != self.dragY) {
 			self.dragX = x;
 			self.dragY = y;
@@ -130,6 +132,72 @@
 {
 	// implementin subclasses
 	return YES;
+}
+
+
+#pragma mark - long press
+
+- (BOOL)recognizesLongPress
+{
+	return _recognizesLongPress;
+}
+
+- (void)setRecognizesLongPress:(BOOL)recognizesLongPress
+{
+	_recognizesLongPress = recognizesLongPress;
+	if (recognizesLongPress) {
+		self.longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
+		if (self.recognizesTaps) {
+			[self.longPressGestureRecognizer requireGestureRecognizerToFail:self.tapGestureRecognizer];
+		}
+		[self addGestureRecognizer:self.longPressGestureRecognizer];
+		self.longPressPointBegan = CGPointZero;
+	}
+	else if (self.longPressGestureRecognizer != nil) {
+		[self removeGestureRecognizer:self.longPressGestureRecognizer];
+		self.longPressGestureRecognizer = nil;
+	}
+}
+
+- (void)handleLongPress:(UILongPressGestureRecognizer *)sender
+{
+	CGPoint point = [sender locationInView:self];
+	CGPoint xyPoint = [self coordinatePointForPixelPoint:point];
+	int x = (int)xyPoint.x;
+	int y = (int)xyPoint.y;
+	if (sender.state == UIGestureRecognizerStateEnded)
+	{
+		self.isLongPressing = NO;
+		self.longPressPointEnded = point;
+		[self handleLongPressEndedAtX:x andY:y];
+	}
+	else if (sender.state == UIGestureRecognizerStateBegan) {
+		self.isLongPressing = YES;
+		self.longPressPointBegan = point;
+		[self handleLongPressStartedAtX:x andY:y];
+	}
+	else {
+		self.longPressPointCurrent = point;
+		[self handleLongPressContinuedAtX:x andY:y];
+	}
+}
+
+- (void)handleLongPressStartedAtX:(int)x andY:(int)y
+{
+	// to implement in subclasses
+	NSLog(@"in GGM_UIView.m ... handleLongPressStartedAtX:%i andY:%i", x, y);
+}
+
+- (void)handleLongPressEndedAtX:(int)x andY:(int)y
+{
+	// to implement in subclasses
+	NSLog(@"in GGM_UIView.m ... handleLongPressEndedAtX:%i andY:%i", x, y);
+}
+
+- (void)handleLongPressContinuedAtX:(int)x andY:(int)y
+{
+	// to implement in subclasses
+	NSLog(@"in GGM_UIView.m ... handleLongPressContinuedAtX:%i andY:%i", x, y);
 }
 
 

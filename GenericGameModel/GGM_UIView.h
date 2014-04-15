@@ -51,6 +51,14 @@ typedef enum {
 @property (assign) int dragY;
 @property (assign) BOOL isDragging;
 
+// long press
+@property (assign) BOOL recognizesLongPress;
+@property (strong, nonatomic) UILongPressGestureRecognizer *longPressGestureRecognizer;
+@property (assign) CGPoint longPressPointBegan;
+@property (assign) CGPoint longPressPointCurrent;
+@property (assign) CGPoint longPressPointEnded;
+@property (assign) BOOL isLongPressing;
+
 // grid
 @property (assign) float gridPixelWidth;
 @property (assign) float gridPixelHeight;
@@ -58,12 +66,19 @@ typedef enum {
 @property (assign) GGM_GridType gridType;
 
 
+// gesture related
+// taps
 - (void)handleTapAtX:(int)x andY:(int)y;
+// drags
 - (void)handleDrag:(UIPanGestureRecognizer*)sender;
 - (void)handleDragStart;
 - (void)handleDragEnd;
 - (void)handleDragContinue;
 - (BOOL)dragAllowedInDirection:(GGM_MoveDirection)direction fromX:(int)x andY:(int)y;
+// long pressing
+- (void)handleLongPressStartedAtX:(int)x andY:(int)y;
+- (void)handleLongPressEndedAtX:(int)x andY:(int)y;
+- (void)handleLongPressContinuedAtX:(int)x andY:(int)y;
 
 - (CGPoint)coordinatePointForPixelPoint:(CGPoint)pixelPoint;
 
