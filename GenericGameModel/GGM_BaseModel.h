@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "BaseModel.h"
+#import "GGM_UIConstants.h"
 
 
 @interface GGM_BaseModel : BaseModel
@@ -57,6 +58,7 @@
 
 // state int getting
 - (int)stateAtX:(int)x andY:(int)y;
+- (int)stateAtDirection:(GGM_MoveDirection)direction fromX:(int)x andY:(int)y;
 
 // dealing with the score
 - (void)scoreIncrement;

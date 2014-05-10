@@ -105,7 +105,7 @@
 	else {
 		self.dragPointCurrent = dragPoint;
 		// TODO: fix this so that subclasses get notified about dragContinue continuously if they want
-		if (x != self.dragX || y != self.dragY) {
+		if (self.shouldDragContinuous || x != self.dragX || y != self.dragY) {
 			self.dragX = x;
 			self.dragY = y;
 			[self handleDragContinue];
@@ -126,6 +126,32 @@
 - (void)handleDragContinue
 {
 	// implement in subclass
+}
+
+- (GGM_MoveDirection)dragDirection
+{
+	GGM_MoveDirection direction = GGM_MOVE_DIRECTION_NONE;
+	float verticalOffset = self.dragPointCurrent.y - self.dragPointBegan.y;
+	float horizontalOffset = self.dragPointCurrent.x - self.dragPointBegan.x;
+	if (fabsf(verticalOffset) > fabsf(horizontalOffset)) {
+		// moving vertically
+		if (verticalOffset > 0) {
+			direction = GGM_MOVE_DIRECTION_DOWN;
+		}
+		else {
+			direction = GGM_MOVE_DIRECTION_UP;
+		}
+	}
+	else {
+		// moving horizontally
+		if (horizontalOffset > 0) {
+			direction = GGM_MOVE_DIRECTION_RIGHT;
+		}
+		else {
+			direction = GGM_MOVE_DIRECTION_LEFT;
+		}
+	}
+	return direction;
 }
 
 - (BOOL)dragAllowedInDirection:(GGM_MoveDirection)direction fromX:(int)x andY:(int)y

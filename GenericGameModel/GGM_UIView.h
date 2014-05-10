@@ -8,28 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "GGM_BaseModel.h"
-
-
-typedef enum {
-	GGM_GRIDTYPE_IMAGE,
-	GGM_GRIDTYPE_COLOR,
-	GGM_GRIDTYPE_TEXTLABEL,
-	GGM_GRIDTYPE_HEX,
-	GGM_GRIDTYPE_CUSTOM
-} GGM_GridType;
-
-typedef enum {
-	GGM_DRAG_DIRECTION_HORIZONTAL,
-	GGM_DRAG_DIRECTION_VERTICAL,
-	GGM_DRAG_DIRECTION_NONE
-} GGM_DragDirection;
-
-typedef enum {
-	GGM_MOVE_DIRECTION_UP,
-	GGM_MOVE_DIRECTION_DOWN,
-	GGM_MOVE_DIRECTION_LEFT,
-	GGM_MOVE_DIRECTION_RIGHT
-} GGM_MoveDirection;
+#import "GGM_UIConstants.h"
 
 
 @interface GGM_UIView : UIView
@@ -50,6 +29,7 @@ typedef enum {
 @property (assign) int dragX;
 @property (assign) int dragY;
 @property (assign) BOOL isDragging;
+@property (assign) BOOL shouldDragContinuous;
 
 // long press
 @property (assign) BOOL recognizesLongPress;
@@ -74,6 +54,7 @@ typedef enum {
 - (void)handleDragStart;
 - (void)handleDragEnd;
 - (void)handleDragContinue;
+- (GGM_MoveDirection)dragDirection;
 - (BOOL)dragAllowedInDirection:(GGM_MoveDirection)direction fromX:(int)x andY:(int)y;
 // long pressing
 - (void)handleLongPressStartedAtX:(int)x andY:(int)y;
