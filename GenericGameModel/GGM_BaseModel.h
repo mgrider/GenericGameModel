@@ -42,6 +42,7 @@
 
 + (instancetype)instanceWithWidth:(int)width andHeight:(int)height;
 + (instancetype)sharedInstanceWithWidth:(int)width andHeight:(int)height;
++ (instancetype)instanceWithMultidimensionalArray:(NSArray*)states;
 
 // various methods to override as needed/wanted
 - (void)setupForNewGame;

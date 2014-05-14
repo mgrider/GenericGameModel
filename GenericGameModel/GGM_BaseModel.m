@@ -59,6 +59,26 @@
 	return model;
 }
 
++ (instancetype)instanceWithMultidimensionalArray:(NSArray*)states
+{
+	GGM_BaseModel *model = [self instance];
+
+	model.gridHeight = (int)[states count];
+	model.gridWidth = (int)[[states objectAtIndex:0] count];
+
+	[model setupGrid];
+
+	for (int y=0; y < model.gridHeight; y++) {
+		for (int x = 0; x < model.gridWidth; x++) {
+			[model setStateAtX:x andY:y toState:[[[states objectAtIndex:y] objectAtIndex:x] intValue]];
+		}
+	}
+
+	[model setupForNewGame];
+
+	return model;
+}
+
 //- (void)setUp
 //{
 //	// this will get called after init (see BaseModel)
