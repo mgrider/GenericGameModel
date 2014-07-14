@@ -41,5 +41,8 @@ typedef enum {
 #define IS_IPHONE_TALL (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone \
 && [[UIScreen mainScreen] bounds].size.height == 568)
 
+// IOS_VERSION
+#define IS_IOS7_OR_LATER ([[[[UIDevice currentDevice].systemVersion componentsSeparatedByString:@"."] objectAtIndex:0] intValue] >= 7)
+
 
 #endif
