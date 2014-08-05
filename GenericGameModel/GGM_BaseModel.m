@@ -213,7 +213,8 @@
 	if (x < 0 ||
 		y < 0 ||
 		x >= _gridWidth ||
-		y >= _gridHeight) {
+		y >= _gridHeight)
+	{
 		NSLog(@"THIS IS A FAIL at x:%i andy:%i.", x, y );
 		return;
 	}
