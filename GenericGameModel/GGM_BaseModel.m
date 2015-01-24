@@ -293,7 +293,7 @@
 }
 
 
-#pragma mark - desc
+#pragma mark - desc and debugging
 
 - (NSString *)description
 {
@@ -307,6 +307,11 @@
 	}
 	desc = [desc stringByAppendingFormat:@"Game Over: %@, Paused: %@, Duration: %@, Score: %i", @(_gameIsOver), @(_gameIsPaused), [self gameTime], self.score];
 	return desc;
+}
+
+- (id)debugQuickLookObject
+{
+	return [self description];
 }
 
 
