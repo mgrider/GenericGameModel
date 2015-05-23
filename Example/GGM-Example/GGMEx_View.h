@@ -7,13 +7,9 @@
 //
 
 #import "GGM_UIView.h"
-#import "GGMEx_Model.h"
 
 
 @interface GGMEx_View : GGM_UIView
-
-
-@property (strong) GGMEx_Model *game;
 
 
 @end

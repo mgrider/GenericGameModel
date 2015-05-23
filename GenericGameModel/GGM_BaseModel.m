@@ -263,18 +263,18 @@
 	return [[[self.gridElements objectAtIndex:y] objectAtIndex:x] intValue];
 }
 
-- (int)stateAtDirection:(GGM_MoveDirection)direction fromX:(int)x andY:(int)y
+- (int)stateAtDirection:(GGM_Direction)direction fromX:(int)x andY:(int)y
 {
 	switch (direction) {
-		case GGM_MOVE_DIRECTION_NONE:
+		case GGM_DIRECTION_NONE:
 			return [self stateAtX:x andY:y];
-		case GGM_MOVE_DIRECTION_UP:
+		case GGM_DIRECTION_UP:
 			return [self stateAtX:x andY:y-1];
-		case GGM_MOVE_DIRECTION_DOWN:
+		case GGM_DIRECTION_DOWN:
 			return [self stateAtX:x andY:y+1];
-		case GGM_MOVE_DIRECTION_LEFT:
+		case GGM_DIRECTION_LEFT:
 			return [self stateAtX:x-1 andY:y];
-		case GGM_MOVE_DIRECTION_RIGHT:
+		case GGM_DIRECTION_RIGHT:
 			return [self stateAtX:x+1 andY:y];
 	}
 }

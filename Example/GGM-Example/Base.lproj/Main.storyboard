@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
     </dependencies>
     <scenes>
         <!--Ex View Controller-->
@@ -17,8 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="8" minValue="2" maxValue="20" translatesAutoresizingMaskIntoConstraints="NO" id="O09-da-Xrb">
-                                <rect key="frame" x="148" y="48" width="301" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <rect key="frame" x="110" y="48" width="260" height="31"/>
                                 <connections>
                                     <action selector="gridSizeSliderChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="NJ6-2c-3No"/>
                                     <action selector="gridSizeSliderEndedChanging:" destination="BYZ-38-t0r" eventType="touchUpOutside" id="Ifv-17-8oy"/>
@@ -26,42 +26,59 @@
                                 </connections>
                             </slider>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Generic Game Model" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mvk-dC-zfW">
-                                <rect key="frame" x="69" y="20" width="679" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <rect key="frame" x="69" y="20" width="316" height="20"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Size:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hPH-0Y-ZN0">
-                                <rect key="frame" x="69" y="52" width="38" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Size X:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hPH-0Y-ZN0">
+                                <rect key="frame" x="16" y="52" width="53" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="8" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x2x-pN-w4o">
-                                <rect key="frame" x="115" y="52" width="27" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <rect key="frame" x="77" y="52" width="27" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Lvi-GX-Uq9">
-                                <rect key="frame" x="467" y="48" width="281" height="29"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <rect key="frame" x="400" y="20" width="352" height="29"/>
                                 <segments>
                                     <segment title="Square"/>
                                     <segment title="Hex"/>
                                     <segment title="Label"/>
+                                    <segment title="Triangles"/>
                                 </segments>
                                 <connections>
                                     <action selector="typeSegmentedControlValueChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="SyR-2h-v8Z"/>
                                 </connections>
                             </segmentedControl>
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="8" minValue="2" maxValue="20" translatesAutoresizingMaskIntoConstraints="NO" id="wXa-B6-kme">
+                                <rect key="frame" x="494" y="48" width="260" height="31"/>
+                                <connections>
+                                    <action selector="gridSizeSliderChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="MIC-iv-9dx"/>
+                                    <action selector="gridSizeSliderEndedChanging:" destination="BYZ-38-t0r" eventType="touchUpInside" id="CGB-gb-wTn"/>
+                                    <action selector="gridSizeSliderEndedChanging:" destination="BYZ-38-t0r" eventType="touchUpOutside" id="lf9-1j-0fl"/>
+                                </connections>
+                            </slider>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Size Y:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qY6-5B-bKb">
+                                <rect key="frame" x="400" y="51" width="52" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="8" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wxz-N9-i8E">
+                                <rect key="frame" x="461" y="51" width="27" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <outlet property="gridSizeLabel" destination="x2x-pN-w4o" id="Avl-rl-xeA"/>
-                        <outlet property="gridSizeSlider" destination="O09-da-Xrb" id="2v0-8e-d1y"/>
+                        <outlet property="gridSizeLabelX" destination="x2x-pN-w4o" id="2jO-09-wLw"/>
+                        <outlet property="gridSizeLabelY" destination="Wxz-N9-i8E" id="3JF-uY-Gus"/>
+                        <outlet property="gridSizeSliderX" destination="O09-da-Xrb" id="bSF-qP-RyC"/>
+                        <outlet property="gridSizeSliderY" destination="wXa-B6-kme" id="zov-jT-Klv"/>
                         <outlet property="gridTypeSegmentedControl" destination="Lvi-GX-Uq9" id="3UZ-1w-lgs"/>
                     </connections>
                 </viewController>

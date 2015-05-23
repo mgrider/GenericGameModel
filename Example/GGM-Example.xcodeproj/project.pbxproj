@@ -25,6 +25,8 @@
 		85EF376F18F3384B00C63B7D /* GGMEx_Model.m in Sources */ = {isa = PBXBuildFile; fileRef = 85EF376E18F3384B00C63B7D /* GGMEx_Model.m */; };
 		85EF377218F3387E00C63B7D /* GGMEx_View.m in Sources */ = {isa = PBXBuildFile; fileRef = 85EF377118F3387E00C63B7D /* GGMEx_View.m */; };
 		CADEDBADF68D4A8CAAA15EE2 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7699A3A69E5A4B929D2FFB3D /* libPods.a */; };
+		F0AA4C371B0D7FA2002AD7B4 /* GGM_UIView+Triangles.m in Sources */ = {isa = PBXBuildFile; fileRef = F0AA4C361B0D7FA2002AD7B4 /* GGM_UIView+Triangles.m */; };
+		F0AA4C411B0DB91C002AD7B4 /* GGM_TriangleView.m in Sources */ = {isa = PBXBuildFile; fileRef = F0AA4C401B0DB91C002AD7B4 /* GGM_TriangleView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,7 +40,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		2ED37E7C84244CA8A75E0ED2 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		227F7A551713B85031B7BE21 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		2C16B5DA8EAC2B3444910110 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		7699A3A69E5A4B929D2FFB3D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		85EF372718F334C100C63B7D /* GGM-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GGM-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		85EF372A18F334C100C63B7D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -69,6 +72,10 @@
 		85EF376E18F3384B00C63B7D /* GGMEx_Model.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGMEx_Model.m; sourceTree = "<group>"; };
 		85EF377018F3387E00C63B7D /* GGMEx_View.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGMEx_View.h; sourceTree = "<group>"; };
 		85EF377118F3387E00C63B7D /* GGMEx_View.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGMEx_View.m; sourceTree = "<group>"; };
+		F0AA4C351B0D7FA2002AD7B4 /* GGM_UIView+Triangles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GGM_UIView+Triangles.h"; sourceTree = "<group>"; };
+		F0AA4C361B0D7FA2002AD7B4 /* GGM_UIView+Triangles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GGM_UIView+Triangles.m"; sourceTree = "<group>"; };
+		F0AA4C3F1B0DB91C002AD7B4 /* GGM_TriangleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGM_TriangleView.h; sourceTree = "<group>"; };
+		F0AA4C401B0DB91C002AD7B4 /* GGM_TriangleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGM_TriangleView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,7 +111,7 @@
 				85EF374F18F334C100C63B7D /* GGM-ExampleTests */,
 				85EF372918F334C100C63B7D /* Frameworks */,
 				85EF372818F334C100C63B7D /* Products */,
-				2ED37E7C84244CA8A75E0ED2 /* Pods.xcconfig */,
+				C07985225CC5352343C47B6F /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -181,13 +188,26 @@
 				85EF376418F337C000C63B7D /* GGM_UIConstants.h */,
 				85EF376518F337C000C63B7D /* GGM_UIView.h */,
 				85EF376618F337C000C63B7D /* GGM_UIView.m */,
+				F0AA4C351B0D7FA2002AD7B4 /* GGM_UIView+Triangles.h */,
+				F0AA4C361B0D7FA2002AD7B4 /* GGM_UIView+Triangles.m */,
 				85EF376718F337C000C63B7D /* GGM_UIViewIsometric.h */,
 				85EF376818F337C000C63B7D /* GGM_UIViewIsometric.m */,
 				85EF376218F337C000C63B7D /* GGM_HexView.h */,
 				85EF376318F337C000C63B7D /* GGM_HexView.m */,
+				F0AA4C3F1B0DB91C002AD7B4 /* GGM_TriangleView.h */,
+				F0AA4C401B0DB91C002AD7B4 /* GGM_TriangleView.m */,
 			);
 			name = GenericGameModel;
 			path = ../GenericGameModel;
+			sourceTree = "<group>";
+		};
+		C07985225CC5352343C47B6F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2C16B5DA8EAC2B3444910110 /* Pods.debug.xcconfig */,
+				227F7A551713B85031B7BE21 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -295,7 +315,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		CB8DD624358D4AA78D373C25 /* Check Pods Manifest.lock */ = {
@@ -324,6 +344,8 @@
 				85EF377218F3387E00C63B7D /* GGMEx_View.m in Sources */,
 				85EF376C18F337C000C63B7D /* GGM_UIViewIsometric.m in Sources */,
 				85EF376918F337C000C63B7D /* GGM_BaseModel.m in Sources */,
+				F0AA4C411B0DB91C002AD7B4 /* GGM_TriangleView.m in Sources */,
+				F0AA4C371B0D7FA2002AD7B4 /* GGM_UIView+Triangles.m in Sources */,
 				85EF373718F334C100C63B7D /* main.m in Sources */,
 				85EF373B18F334C100C63B7D /* GGMEx_AppDelegate.m in Sources */,
 				85EF376A18F337C000C63B7D /* GGM_HexView.m in Sources */,
@@ -436,7 +458,7 @@
 		};
 		85EF375A18F334C100C63B7D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2ED37E7C84244CA8A75E0ED2 /* Pods.xcconfig */;
+			baseConfigurationReference = 2C16B5DA8EAC2B3444910110 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -450,7 +472,7 @@
 		};
 		85EF375B18F334C100C63B7D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2ED37E7C84244CA8A75E0ED2 /* Pods.xcconfig */;
+			baseConfigurationReference = 227F7A551713B85031B7BE21 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;

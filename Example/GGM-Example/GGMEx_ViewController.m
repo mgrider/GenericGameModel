@@ -12,9 +12,18 @@
 
 
 @interface GGMEx_ViewController ()
+
 @property (nonatomic, strong) GGMEx_Model *gameModel;
 @property (nonatomic, strong) GGMEx_View *gameView;
 @property (nonatomic, assign) GGM_GridType viewType;
+
+@property (weak, nonatomic) IBOutlet UILabel *gridSizeLabelX;
+@property (weak, nonatomic) IBOutlet UILabel *gridSizeLabelY;
+@property (weak, nonatomic) IBOutlet UISlider *gridSizeSliderX;
+@property (weak, nonatomic) IBOutlet UISlider *gridSizeSliderY;
+
+@property (weak, nonatomic) IBOutlet UISegmentedControl *gridTypeSegmentedControl;
+
 @end
 
 
@@ -37,8 +46,9 @@
 - (void)setupGameModelAndViewFromGridSize
 {
 	// new model
-	int size = self.gridSizeSlider.value;
-	self.gameModel = [GGMEx_Model instanceWithWidth:size andHeight:size];
+	int sizeX = self.gridSizeSliderX.value;
+	int sizeY = self.gridSizeSliderY.value;
+	self.gameModel = [GGMEx_Model instanceWithWidth:sizeX andHeight:sizeY];
 
 	switch (self.viewType) {
 		case GGM_GRIDTYPE_TEXTLABEL: {
@@ -81,18 +91,17 @@
 
 - (void)updateGridSizeLabel
 {
-	[self.gridSizeLabel setText:[@((int)self.gridSizeSlider.value) stringValue]];
+	[self.gridSizeLabelX setText:[@((int)self.gridSizeSliderX.value) stringValue]];
+	[self.gridSizeLabelY setText:[@((int)self.gridSizeSliderY.value) stringValue]];
 }
 
 - (IBAction)gridSizeSliderChanged:(UISlider *)sender
 {
-	// just update the label
 	[self updateGridSizeLabel];
 }
 
 - (IBAction)gridSizeSliderEndedChanging:(UISlider *)sender
 {
-	// update the game view
 	[self setupGameModelAndViewFromGridSize];
 }
 
@@ -110,6 +119,11 @@
 		case 2: {
 			// label
 			self.viewType = GGM_GRIDTYPE_TEXTLABEL;
+			break;
+		}
+		case 3: {
+			// triangles
+			self.viewType = GGM_GRIDTYPE_TRIANGLE;
 			break;
 		}
 		default:

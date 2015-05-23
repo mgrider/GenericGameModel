@@ -59,7 +59,7 @@
 
 // state int getting
 - (int)stateAtX:(int)x andY:(int)y;
-- (int)stateAtDirection:(GGM_MoveDirection)direction fromX:(int)x andY:(int)y;
+- (int)stateAtDirection:(GGM_Direction)direction fromX:(int)x andY:(int)y;
 
 // dealing with the score
 - (void)scoreIncrement;

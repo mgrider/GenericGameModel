@@ -45,6 +45,9 @@
 @property (strong) NSMutableArray *gridViewArray;
 @property (assign) GGM_GridType gridType;
 
+// used for gridType GGM_GRIDTYPE_TRIANGLES
+@property (nonatomic) NSArray *triangleCoordinates;
+
 
 // gesture related
 // taps
@@ -54,8 +57,8 @@
 - (void)handleDragStart;
 - (void)handleDragEnd;
 - (void)handleDragContinue;
-- (GGM_MoveDirection)dragDirection;
-- (BOOL)dragAllowedInDirection:(GGM_MoveDirection)direction fromX:(int)x andY:(int)y;
+- (GGM_Direction)dragDirection;
+- (BOOL)dragAllowedInDirection:(GGM_Direction)direction fromX:(int)x andY:(int)y;
 // long pressing
 - (void)handleLongPressStartedAtX:(int)x andY:(int)y;
 - (void)handleLongPressEndedAtX:(int)x andY:(int)y;

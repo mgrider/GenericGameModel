@@ -10,8 +10,16 @@
 #import "GGMEx_Model.h"
 
 
+@interface GGMEx_Model ()
+
+@property (strong) GGMEx_Model *game;
+
+@end
+
+
 @implementation GGMEx_View
 
+@dynamic game;
 
 #pragma mark - drawing states
 

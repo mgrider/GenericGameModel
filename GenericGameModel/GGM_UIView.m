@@ -7,8 +7,12 @@
 //
 
 #import "GGM_UIView.h"
+
 #import "GGM_BaseModel.h"
 #import "GGM_HexView.h"
+#import "GGM_TriangleView.h"
+#import "GGM_UIConstants.h"
+#import "GGM_UIView+Triangles.h"
 #import <QuartzCore/QuartzCore.h>
 
 
@@ -128,33 +132,33 @@
 	// implement in subclass
 }
 
-- (GGM_MoveDirection)dragDirection
+- (GGM_Direction)dragDirection
 {
-	GGM_MoveDirection direction = GGM_MOVE_DIRECTION_NONE;
+	GGM_Direction direction = GGM_DIRECTION_NONE;
 	float verticalOffset = self.dragPointCurrent.y - self.dragPointBegan.y;
 	float horizontalOffset = self.dragPointCurrent.x - self.dragPointBegan.x;
 	if (fabsf(verticalOffset) > fabsf(horizontalOffset)) {
 		// moving vertically
 		if (verticalOffset > 0) {
-			direction = GGM_MOVE_DIRECTION_DOWN;
+			direction = GGM_DIRECTION_DOWN;
 		}
 		else {
-			direction = GGM_MOVE_DIRECTION_UP;
+			direction = GGM_DIRECTION_UP;
 		}
 	}
 	else {
 		// moving horizontally
 		if (horizontalOffset > 0) {
-			direction = GGM_MOVE_DIRECTION_RIGHT;
+			direction = GGM_DIRECTION_RIGHT;
 		}
 		else {
-			direction = GGM_MOVE_DIRECTION_LEFT;
+			direction = GGM_DIRECTION_LEFT;
 		}
 	}
 	return direction;
 }
 
-- (BOOL)dragAllowedInDirection:(GGM_MoveDirection)direction fromX:(int)x andY:(int)y
+- (BOOL)dragAllowedInDirection:(GGM_Direction)direction fromX:(int)x andY:(int)y
 {
 	// implementin subclasses
 	return YES;
@@ -239,6 +243,9 @@
 			x = (pixelPoint.x - pixelOffset) / self.gridPixelWidth;
 			break;
 		}
+		case GGM_GRIDTYPE_TRIANGLE: {
+			return [self triangleXYPointForPixelPoint:pixelPoint];
+		}
 		default: {
 			x = pixelPoint.x / self.gridPixelWidth;
 			y = pixelPoint.y / self.gridPixelHeight;
@@ -306,6 +313,11 @@
 //			[view setFrame:CGRectMake((self.gridPixelWidth*x)+pixelOffset, (self.gridPixelHeight*y), self.gridPixelWidth, self.gridPixelHeight)];
 			break;
 		}
+		case GGM_GRIDTYPE_TRIANGLE: {
+			CGRect frame = [self triangleContainingRectForX:x andY:y];
+			[view setFrame:frame];
+			break;
+		}
 		default: {
 			[view setFrame:CGRectMake((self.gridPixelWidth*x), (self.gridPixelHeight*y), self.gridPixelWidth, self.gridPixelHeight)];
 			break;
@@ -332,6 +344,11 @@
 		}
 		case GGM_GRIDTYPE_HEX: {
 			[(GGM_HexView*)view setHexColor:[self colorForGameState:gameState]];
+			break;
+		}
+		case GGM_GRIDTYPE_TRIANGLE: {
+			[(GGM_TriangleView*)view setTrianglePointDirection:[self triangleDirectionForX:x andY:y]];
+			[(GGM_TriangleView*)view setTriangleColor:[self colorForGameState:gameState]];
 			break;
 		}
 		case GGM_GRIDTYPE_CUSTOM: {
@@ -415,6 +432,10 @@
 			return [[GGM_HexView alloc] init];
 		}
 
+		case GGM_GRIDTYPE_TRIANGLE: {
+			return [[GGM_TriangleView alloc] init];
+		}
+
 		case GGM_GRIDTYPE_CUSTOM: {
 			return [[UIView alloc] init];
 		}
@@ -461,6 +482,10 @@
 			[subarray insertObject:view atIndex:x];
 		}
 		[self.gridViewArray insertObject:subarray atIndex:y];
+	}
+
+	if (self.gridType == GGM_GRIDTYPE_TRIANGLE) {
+		[self setupGridViewArrayForTriangles];
 	}
 }
 
