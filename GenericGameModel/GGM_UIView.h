@@ -47,6 +47,7 @@
 
 // used for gridType GGM_GRIDTYPE_TRIANGLES
 @property (nonatomic) NSArray *triangleCoordinates;
+@property (nonatomic) BOOL allowIrregularTriangles;
 
 
 // gesture related

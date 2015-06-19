@@ -26,19 +26,23 @@ static NSString * const kCY = @"kcy";
 {
 	// deliberately do not call super here
 
-	self.gridPixelWidth = (self.frame.size.width / (self.game.gridWidth + 1)) * 2.0f;
-	self.gridPixelHeight =  sqrt(3) / 2 * self.gridPixelWidth;
-
-	NSLog(@"frame is %@\nfirst width: %f (%f) height: %f (%f)", NSStringFromCGRect(self.frame), self.gridPixelWidth, (self.gridPixelWidth * (self.game.gridWidth / 2.0f)), self.gridPixelHeight, (self.gridPixelHeight * self.game.gridHeight));
-
-	// if we are taller than wide, do this instead
-	if ((self.gridPixelHeight * self.game.gridHeight) > self.frame.size.height)
+	if (self.allowIrregularTriangles)
 	{
-		self.gridPixelHeight = self.frame.size.height / self.game.gridHeight;
-		self.gridPixelWidth = self.gridPixelHeight * 1.1547;
+		self.gridPixelWidth = (self.frame.size.width / (self.game.gridWidth + 1)) * 2.0f;
+		self.gridPixelHeight =  self.frame.size.height / self.game.gridHeight;
 	}
+	else
+	{
+		self.gridPixelWidth = (self.frame.size.width / (self.game.gridWidth + 1)) * 2.0f;
+		self.gridPixelHeight =  sqrt(3) / 2 * self.gridPixelWidth;
 
-	NSLog(@"after width: %f (%f) height: %f (%f)", self.gridPixelWidth, (self.gridPixelWidth * (self.game.gridWidth / 2.0f)), self.gridPixelHeight, (self.gridPixelHeight * self.game.gridHeight));
+		// if we are taller than wide, do this instead
+		if ((self.gridPixelHeight * self.game.gridHeight) > self.frame.size.height)
+		{
+			self.gridPixelHeight = self.frame.size.height / self.game.gridHeight;
+			self.gridPixelWidth = self.gridPixelHeight * 1.1547;
+		}
+	}
 
 	[self setupTriangleCoordinates];
 }
@@ -140,13 +144,18 @@ static NSString * const kCY = @"kcy";
 - (CGPoint)triangleXYPointForPixelPoint:(CGPoint)pixelPoint
 {
 	int y = pixelPoint.y / self.gridPixelHeight;
+	if (y >= self.game.gridHeight)
+	{
+		return CGPointMake(-1, -1);
+	}
 	for (int x = 0; x < self.game.gridWidth; x++)
 	{
-		if ([self pixelPoint:pixelPoint isInsideX:x andY:y]) {
+		if ([self pixelPoint:pixelPoint isInsideX:x andY:y])
+		{
 			return CGPointMake(x, y);
 		}
 	}
-	return CGPointZero;
+	return CGPointMake(-1, -1);
 }
 
 - (float)signForPoint1:(CGPoint)p1 point2:(CGPoint)p2 andPoint3:(CGPoint)p3

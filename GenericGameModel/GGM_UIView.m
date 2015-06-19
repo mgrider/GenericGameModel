@@ -235,6 +235,10 @@
 
 - (CGPoint)coordinatePointForPixelPoint:(CGPoint)pixelPoint
 {
+	if ( ! CGRectContainsPoint(CGRectMake(0.0f, 0.0f, self.frame.size.width, self.frame.size.height), pixelPoint))
+	{
+		return CGPointMake(-1, -1);
+	}
 	int x,y;
 	switch (self.gridType) {
 		case GGM_GRIDTYPE_HEX: {
@@ -276,6 +280,9 @@
 - (void)refreshViewForX:(int)x andY:(int)y
 {
 	UIView *view = [self viewForX:x andY:y];
+	if (view == nil) {
+		return;
+	}
 	[self refreshView:view positionAtX:x andY:y];
 	[self refreshView:view stateAtX:x andY:y];
 }

@@ -72,6 +72,9 @@
 
 	// set the type of subviews
 	[self.gameView setGridType:self.viewType];
+	if (self.viewType == GGM_GRIDTYPE_TRIANGLE) {
+		self.gameView.allowIrregularTriangles = YES;
+	}
 
 	// setup the views
 	[self.gameView setGame:self.gameModel];
