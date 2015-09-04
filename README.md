@@ -37,4 +37,12 @@ GenericGameModel is available under the MIT license. See the LICENSE file for mo
 
 ## 0.1.0
 
+Added support for triangular grids.
+
+## 0.0.2
+
+Added support for hex grids.
+
+## 0.0.1
+
 Initial release.

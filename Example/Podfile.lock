@@ -1,0 +1,10 @@
+PODS:
+  - BaseModel (2.6.3)
+
+DEPENDENCIES:
+  - BaseModel
+
+SPEC CHECKSUMS:
+  BaseModel: 4c9965bea266250b90e78bc1a1948d74e81d9e89
+
+COCOAPODS: 0.36.4
