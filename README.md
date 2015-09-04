@@ -35,14 +35,16 @@ GenericGameModel is available under the MIT license. See the LICENSE file for mo
 
 # CHANGELOG
 
-## 0.1.0
+Unfortunately, the first few versions of this library pretty regularly broke the previous API. Additionally, they weren't using the propper semantic versioning.
 
-Added support for triangular grids.
+## 3.0.0 (tag 3.0.0)
 
-## 0.0.2
+Added support for triangular grids. More API changes.
 
-Added support for hex grids.
+## 2.0.0 (tag 0.0.2)
 
-## 0.0.1
+Added support for hex grids. Various refactoring (apologies).
+
+## 0.1.0 (tag 0.0.1)
 
 Initial release.
