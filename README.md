@@ -34,7 +34,7 @@ GenericGameModel is available under the MIT license. See the LICENSE file for mo
 
 Unfortunately, the first few versions of this library pretty regularly broke the previous API. Additionally, they weren't using the propper semantic versioning.
 
-## 3.1.0
+## 3.1.1
 
 Added less weird hex grid type `GGM_GRIDTYPE_HEX_SQUARE`.
 
