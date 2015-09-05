@@ -247,6 +247,15 @@
 			x = (pixelPoint.x - pixelOffset) / self.gridPixelWidth;
 			break;
 		}
+		case GGM_GRIDTYPE_HEX_SQUARE: {
+			// this breaks down on the corners, unfortunately, but it's a pretty decent approximation
+			y = pixelPoint.y / self.gridPixelHeight;
+			int numberOfHalves = (self.game.gridWidth * 2) + 1;
+			float halfWidth = self.frame.size.width / numberOfHalves;
+			int pixelXOffset = (y % 2 == 0) ? halfWidth : 0.0f;
+			x = (pixelPoint.x - pixelXOffset) / self.gridPixelWidth;
+			break;
+		}
 		case GGM_GRIDTYPE_TRIANGLE: {
 			return [self triangleXYPointForPixelPoint:pixelPoint];
 		}
@@ -307,6 +316,7 @@
 {
 	switch (self.gridType) {
 		case GGM_GRIDTYPE_HEX: {
+			// was used for Catchup, you probably want GGM_GRIDTYPE_HEX_SQUARE tho.
 			int numberOfFourths = (self.game.gridHeight * 3) + 1;
 			float fourthHeight = self.frame.size.height / numberOfFourths;
 			float pWidth = self.gridPixelWidth - 1.0f;
@@ -315,9 +325,20 @@
 			float startY = (fourthHeight * 3.0f) * y;
 			float startX = (self.gridPixelWidth * x) + pixelXOffset;
 			[view setFrame:CGRectMake(startX, startY, pWidth, pHeight)];
-
-//			float pixelOffset = (self.gridPixelWidth / 2.0f) * (y - (self.game.gridWidth / 2));
-//			[view setFrame:CGRectMake((self.gridPixelWidth*x)+pixelOffset, (self.gridPixelHeight*y), self.gridPixelWidth, self.gridPixelHeight)];
+			break;
+		}
+		case GGM_GRIDTYPE_HEX_SQUARE:
+		{
+			int numberOfFourths = (self.game.gridHeight * 3) + 1;
+			float fourthHeight = self.frame.size.height / numberOfFourths;
+			float pHeight = (fourthHeight * 4.0f) - 1.0f;
+			int numberOfHalves = (self.game.gridWidth * 2) + 1;
+			float halfWidth = self.frame.size.width / numberOfHalves;
+			float pWidth = (halfWidth * 2.0f) - 1.0f;
+			float pixelXOffset = (y % 2 == 0) ? halfWidth : 0.0f;
+			float startY = (fourthHeight * 3.0f) * y;
+			float startX = ((halfWidth * 2.0f) * x) + pixelXOffset;
+			[view setFrame:CGRectMake(startX, startY, pWidth, pHeight)];
 			break;
 		}
 		case GGM_GRIDTYPE_TRIANGLE: {
@@ -349,6 +370,7 @@
 			[(UILabel *)view setText:[self textForGameState:gameState]];
 			break;
 		}
+		case GGM_GRIDTYPE_HEX_SQUARE:
 		case GGM_GRIDTYPE_HEX: {
 			[(GGM_HexView*)view setHexColor:[self colorForGameState:gameState]];
 			break;
@@ -435,6 +457,7 @@
 			return label;
 		}
 
+		case GGM_GRIDTYPE_HEX_SQUARE:
 		case GGM_GRIDTYPE_HEX: {
 			return [[GGM_HexView alloc] init];
 		}

@@ -116,7 +116,7 @@
 	switch (sender.selectedSegmentIndex) {
 		case 1: {
 			// hex
-			self.viewType = GGM_GRIDTYPE_HEX;
+			self.viewType = GGM_GRIDTYPE_HEX_SQUARE;
 			break;
 		}
 		case 2: {
