@@ -1,6 +1,6 @@
 # Generic Game Model
 
-The Generic Game Model (GGM) project seeks to provide relatively simple classes to facilitate easy creation of 2D games for iOS. GGM classes (`GGM_BaseModel` and `GGM_View` for example) should not generally be instantiated directly, but rather sublcassed by your project to meet your specific needs.
+The Generic Game Model (GGM) project seeks to provide relatively simple classes to facilitate easy creation of 2D games for iOS, primarily using `UIKit`. GGM classes (`GGM_BaseModel` and `GGM_UIView` for example) should not generally be instantiated directly, but rather sublcassed by your project to meet your specific needs.
 
 
 ## Installation / Requirements
@@ -17,7 +17,7 @@ If you don't want to use Cocoapods, you may instead simply copy all the files in
 
 To run the example project; clone the repo, and run `pod install` from the Example directory first.
 
-Generally speaking, you should subclass `GGM_BaseModel` and `GGM_View` (or any of its subclasses). See the example project.
+Generally speaking, you should subclass `GGM_BaseModel` and `GGM_UIView` (or any of its subclasses). See the example project.
 
 
 ## Author
@@ -33,6 +33,10 @@ GenericGameModel is available under the MIT license. See the LICENSE file for mo
 # CHANGELOG
 
 Unfortunately, the first few versions of this library pretty regularly broke the previous API. Additionally, they weren't using the propper semantic versioning.
+
+## 3.1.0
+
+Added less weird hex grid type `GGM_GRIDTYPE_HEX_SQUARE`.
 
 ## 3.0.0 (tag 3.0.0)
 
