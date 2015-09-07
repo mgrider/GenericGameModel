@@ -419,6 +419,7 @@
 
 - (UIColor *)colorForGameState:(int)stateInt
 {
+	// implement in your subclass.
 	switch (stateInt) {
 //		case 1:
 //			return [UIColor redColor];
@@ -493,12 +494,17 @@
 
 - (void)setGame:(GGM_BaseModel *)game
 {
-	// sometimes, this is our init
 	_game = game;
 	[self setupInitialGridViewArray];
 }
 
 - (void)setupInitialGridViewArray
+{
+	[self setupPixelSizes];
+	[self setupInitialGridViewArrayShared];
+}
+
+- (void)setupPixelSizes
 {
 	switch (self.gridType)
 	{
@@ -518,7 +524,6 @@
 			break;
 		}
 	}
-	[self setupInitialGridViewArrayShared];
 }
 
 - (void)setupPixelSizesSquareGrid

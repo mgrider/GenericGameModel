@@ -81,6 +81,8 @@
 - (void)refreshView:(UIView*)view positionAtX:(int)x andY:(int)y;
 - (void)refreshView:(UIView*)view stateAtX:(int)x andY:(int)y;
 
+- (CGPoint)pixelPointForX:(int)x andY:(int)y;
+
 - (UIImage*)imageForGameState:(int)stateInt;
 - (UIColor *)colorForGameState:(int)stateInt;
 - (NSString *)textForGameState:(int)stateInt;
@@ -88,6 +90,7 @@
 - (UIView *)newSubviewForGameState:(int)state;
 
 - (void)setupInitialGridViewArray;
+- (void)setupPixelSizes;
 
 
 @end
