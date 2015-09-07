@@ -14,36 +14,42 @@
 @interface GGM_UIView : UIView
 
 
-@property (strong) GGM_BaseModel *game;
+@property (nonatomic) GGM_BaseModel *game;
 
 // taps
-@property (assign) BOOL recognizesTaps;
-@property (strong, nonatomic) UITapGestureRecognizer *tapGestureRecognizer;
+@property (nonatomic) BOOL recognizesTaps;
+@property (nonatomic) UITapGestureRecognizer *tapGestureRecognizer;
 
 // drags
-@property (assign) BOOL recognizesDrags;
-@property (strong, nonatomic) UIPanGestureRecognizer *dragGestureRecognizer;
-@property (assign) CGPoint dragPointBegan;
-@property (assign) CGPoint dragPointEnded;
-@property (assign) CGPoint dragPointCurrent;
-@property (assign) int dragX;
-@property (assign) int dragY;
-@property (assign) BOOL isDragging;
-@property (assign) BOOL shouldDragContinuous;
+@property (nonatomic) BOOL recognizesDrags;
+@property (nonatomic) UIPanGestureRecognizer *dragGestureRecognizer;
+@property (nonatomic) CGPoint dragPointBegan;
+@property (nonatomic) CGPoint dragPointEnded;
+@property (nonatomic) CGPoint dragPointCurrent;
+@property (nonatomic) int dragX;
+@property (nonatomic) int dragY;
+@property (nonatomic) int dragCurrentX;
+@property (nonatomic) int dragCurrentY;
+@property (nonatomic) BOOL isDragging;
+@property (nonatomic) BOOL shouldDragContinuous;
 
 // long press
-@property (assign) BOOL recognizesLongPress;
-@property (strong, nonatomic) UILongPressGestureRecognizer *longPressGestureRecognizer;
-@property (assign) CGPoint longPressPointBegan;
-@property (assign) CGPoint longPressPointCurrent;
-@property (assign) CGPoint longPressPointEnded;
-@property (assign) BOOL isLongPressing;
+@property (nonatomic) BOOL recognizesLongPress;
+@property (nonatomic) UILongPressGestureRecognizer *longPressGestureRecognizer;
+@property (nonatomic) CGPoint longPressPointBegan;
+@property (nonatomic) CGPoint longPressPointCurrent;
+@property (nonatomic) CGPoint longPressPointEnded;
+@property (nonatomic) BOOL isLongPressing;
 
 // grid
-@property (assign) float gridPixelWidth;
-@property (assign) float gridPixelHeight;
-@property (strong) NSMutableArray *gridViewArray;
-@property (assign) GGM_GridType gridType;
+@property (nonatomic) float gridPixelWidth;
+@property (nonatomic) float gridPixelHeight;
+@property (nonatomic) NSMutableArray *gridViewArray;
+@property (nonatomic) GGM_GridType gridType;
+
+// used for gridType GGM_GRIDTYPE_HEX_SQUARE
+@property (nonatomic) float hexPixelMultiplierHeight; // 1/4 of a hex (*3 to get y)
+@property (nonatomic) float hexPixelMultiplierWidth;  // 1/2 of a hex
 
 // used for gridType GGM_GRIDTYPE_TRIANGLES
 @property (nonatomic) NSArray *triangleCoordinates;

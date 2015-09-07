@@ -13,23 +13,14 @@
 #import "GGM_TriangleView.h"
 #import "GGM_UIConstants.h"
 #import "GGM_UIView+Triangles.h"
+#import "GGM_UIView+Hexagons.h"
 #import <QuartzCore/QuartzCore.h>
 
 
 @implementation GGM_UIView
 
-@synthesize game = _game;
-@synthesize recognizesTaps = _recognizesTaps;
-@synthesize recognizesDrags = _recognizesDrags;
-@synthesize recognizesLongPress = _recognizesLongPress;
-
 
 #pragma mark - tap touch detection
-
-- (BOOL)recognizesTaps
-{
-	return _recognizesTaps;
-}
 
 - (void)setRecognizesTaps:(BOOL)recognizesTaps
 {
@@ -65,14 +56,8 @@
 
 #pragma mark - drag touch detection
 
-- (BOOL)recognizesDrags
-{
-	return _recognizesDrags;
-}
-
 - (void)setRecognizesDrags:(BOOL)recognizesDrags
 {
-	NSLog(@"recognizes drags is %d", recognizesDrags);
 	_recognizesDrags = recognizesDrags;
 	if (recognizesDrags) {
 		self.dragGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleDrag:)];
@@ -108,8 +93,14 @@
 	}
 	else {
 		self.dragPointCurrent = dragPoint;
-		// TODO: fix this so that subclasses get notified about dragContinue continuously if they want
-		if (self.shouldDragContinuous || x != self.dragX || y != self.dragY) {
+		if (self.shouldDragContinuous)
+		{
+			self.dragCurrentX = x;
+			self.dragCurrentY = y;
+			[self handleDragContinuous];
+		}
+		else if (x != self.dragX || y != self.dragY)
+		{
 			self.dragX = x;
 			self.dragY = y;
 			[self handleDragContinue];
@@ -130,6 +121,22 @@
 - (void)handleDragContinue
 {
 	// implement in subclass
+}
+
+- (void)handleDragContinuous
+{
+	UIView *view = [self viewForX:self.dragX andY:self.dragY];
+	[self bringSubviewToFront:view];
+	float verticalOffset = self.dragPointCurrent.y - self.dragPointBegan.y;
+	float horizontalOffset = self.dragPointCurrent.x - self.dragPointBegan.x;
+	if ( ! [self.game stateAtX:self.dragX andY:self.dragY canMoveToX:self.dragCurrentX andY:self.dragCurrentY])
+	{
+		verticalOffset = (verticalOffset > 10.0f) ? 10.0f : verticalOffset;
+		verticalOffset = (verticalOffset < -10.0f) ? -10.0f : verticalOffset;
+		horizontalOffset = (horizontalOffset > 10.0f) ? 10.0f : horizontalOffset;
+		horizontalOffset = (horizontalOffset < -10.0f) ? -10.0f : horizontalOffset;
+	}
+	[view setFrame:CGRectMake(((self.gridPixelWidth*self.dragCurrentX)+horizontalOffset), ((self.gridPixelHeight*self.dragCurrentY)+verticalOffset), view.frame.size.width, view.frame.size.height)];
 }
 
 - (GGM_Direction)dragDirection
@@ -166,11 +173,6 @@
 
 
 #pragma mark - long press
-
-- (BOOL)recognizesLongPress
-{
-	return _recognizesLongPress;
-}
 
 - (void)setRecognizesLongPress:(BOOL)recognizesLongPress
 {
@@ -248,13 +250,7 @@
 			break;
 		}
 		case GGM_GRIDTYPE_HEX_SQUARE: {
-			// this breaks down on the corners, unfortunately, but it's a pretty decent approximation
-			y = pixelPoint.y / self.gridPixelHeight;
-			int numberOfHalves = (self.game.gridWidth * 2) + 1;
-			float halfWidth = self.frame.size.width / numberOfHalves;
-			int pixelXOffset = (y % 2 == 0) ? halfWidth : 0.0f;
-			x = (pixelPoint.x - pixelXOffset) / self.gridPixelWidth;
-			break;
+			return [self hexCoordinatePointForPixelPoint:pixelPoint];
 		}
 		case GGM_GRIDTYPE_TRIANGLE: {
 			return [self triangleXYPointForPixelPoint:pixelPoint];
@@ -327,30 +323,47 @@
 			[view setFrame:CGRectMake(startX, startY, pWidth, pHeight)];
 			break;
 		}
-		case GGM_GRIDTYPE_HEX_SQUARE:
-		{
-			int numberOfFourths = (self.game.gridHeight * 3) + 1;
-			float fourthHeight = self.frame.size.height / numberOfFourths;
-			float pHeight = (fourthHeight * 4.0f) - 1.0f;
-			int numberOfHalves = (self.game.gridWidth * 2) + 1;
-			float halfWidth = self.frame.size.width / numberOfHalves;
-			float pWidth = (halfWidth * 2.0f) - 1.0f;
-			float pixelXOffset = (y % 2 == 0) ? halfWidth : 0.0f;
-			float startY = (fourthHeight * 3.0f) * y;
-			float startX = ((halfWidth * 2.0f) * x) + pixelXOffset;
-			[view setFrame:CGRectMake(startX, startY, pWidth, pHeight)];
-			break;
-		}
 		case GGM_GRIDTYPE_TRIANGLE: {
 			CGRect frame = [self triangleContainingRectForX:x andY:y];
 			[view setFrame:frame];
 			break;
 		}
 		default: {
-			[view setFrame:CGRectMake((self.gridPixelWidth*x), (self.gridPixelHeight*y), self.gridPixelWidth, self.gridPixelHeight)];
+			CGPoint pixelPoint = [self pixelPointForX:x andY:y];
+			[view setFrame:CGRectMake(pixelPoint.x, pixelPoint.y, self.gridPixelWidth, self.gridPixelHeight)];
 			break;
 		}
 	}
+}
+
+- (CGPoint)pixelPointForX:(int)x andY:(int)y
+{
+	CGPoint point = CGPointZero;
+	switch (self.gridType) {
+		case GGM_GRIDTYPE_HEX: {
+			// todo (this isn't really used, probably okay)
+			break;
+		}
+		case GGM_GRIDTYPE_HEX_SQUARE:
+		{
+			point = [self hexPixelPointForX:x andY:y];
+			break;
+		}
+		case GGM_GRIDTYPE_TRIANGLE:
+		{
+			CGRect frame = [self triangleContainingRectForX:x andY:y];
+			point.x = frame.origin.x;
+			point.y = frame.origin.y;
+			break;
+		}
+		default:
+		{
+			point.x = self.gridPixelWidth * x;
+			point.y = self.gridPixelHeight * y;
+			break;
+		}
+	}
+	return point;
 }
 
 - (void)refreshView:(UIView*)view stateAtX:(int)x andY:(int)y
@@ -477,34 +490,53 @@
 
 #pragma mark - dealing with the gameModel
 
-- (GGM_BaseModel *)game
-{
-	return _game;
-}
-
 - (void)setGame:(GGM_BaseModel *)game
 {
-	// for most purposes, this is our init
+	// sometimes, this is our init
 	_game = game;
 	[self setupInitialGridViewArray];
 }
 
 - (void)setupInitialGridViewArray
 {
+	switch (self.gridType)
+	{
+		case GGM_GRIDTYPE_TRIANGLE:
+		{
+			[self setupGridViewArrayForTriangles];
+			break;
+		}
+		case GGM_GRIDTYPE_HEX_SQUARE:
+		{
+			[self setupPixelSizesHexGrid];
+			break;
+		}
+		default:
+		{
+			[self setupPixelSizesSquareGrid];
+			break;
+		}
+	}
+	[self setupInitialGridViewArrayShared];
+}
+
+- (void)setupPixelSizesSquareGrid
+{
 	self.gridPixelWidth = self.frame.size.width / self.game.gridWidth;
 	self.gridPixelHeight =  self.frame.size.height / self.game.gridHeight;
+}
 
+- (void)setupInitialGridViewArrayShared
+{
 	self.gridViewArray = [NSMutableArray arrayWithCapacity:self.game.gridHeight];
-
 	NSMutableArray *subarray;
 	int gameState = 0;
 	UIView *view;
-	for (int y = 0; y < self.game.gridHeight; y++) {
-
+	for (int y = 0; y < self.game.gridHeight; y++)
+	{
 		subarray = [NSMutableArray arrayWithCapacity:self.game.gridWidth];
-
-		for (int x = 0; x < self.game.gridWidth; x++) {
-
+		for (int x = 0; x < self.game.gridWidth; x++)
+		{
 			gameState = [self.game stateAtX:x andY:y];
 			view = (UIView*)[self newSubviewForGameState:gameState];
 			[self addSubview:view];
@@ -513,9 +545,15 @@
 		}
 		[self.gridViewArray insertObject:subarray atIndex:y];
 	}
+}
 
-	if (self.gridType == GGM_GRIDTYPE_TRIANGLE) {
-		[self setupGridViewArrayForTriangles];
+- (void)setGridType:(GGM_GridType)gridType
+{
+	BOOL needsSetup = (gridType != _gridType) || (! self.gridViewArray);
+	_gridType = gridType;
+	if (needsSetup)
+	{
+		[self setupInitialGridViewArray];
 	}
 }
 

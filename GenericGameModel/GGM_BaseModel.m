@@ -279,6 +279,11 @@
 	}
 }
 
+- (BOOL)stateAtX:(int)x andY:(int)y canMoveToX:(int)newX andY:(int)newY
+{
+	// implement in subclasses
+	return YES;
+}
 
 #pragma mark - score
 

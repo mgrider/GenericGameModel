@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		853949DC1B9E025A00790DCC /* GGM_UIView+Hexagons.m in Sources */ = {isa = PBXBuildFile; fileRef = 853949DB1B9E025A00790DCC /* GGM_UIView+Hexagons.m */; };
 		85EF372B18F334C100C63B7D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85EF372A18F334C100C63B7D /* Foundation.framework */; };
 		85EF372D18F334C100C63B7D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85EF372C18F334C100C63B7D /* CoreGraphics.framework */; };
 		85EF372F18F334C100C63B7D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85EF372E18F334C100C63B7D /* UIKit.framework */; };
@@ -43,6 +44,8 @@
 		227F7A551713B85031B7BE21 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		2C16B5DA8EAC2B3444910110 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		7699A3A69E5A4B929D2FFB3D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		853949DA1B9E025A00790DCC /* GGM_UIView+Hexagons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GGM_UIView+Hexagons.h"; sourceTree = "<group>"; };
+		853949DB1B9E025A00790DCC /* GGM_UIView+Hexagons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GGM_UIView+Hexagons.m"; sourceTree = "<group>"; };
 		85EF372718F334C100C63B7D /* GGM-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GGM-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		85EF372A18F334C100C63B7D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		85EF372C18F334C100C63B7D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -188,6 +191,8 @@
 				85EF376418F337C000C63B7D /* GGM_UIConstants.h */,
 				85EF376518F337C000C63B7D /* GGM_UIView.h */,
 				85EF376618F337C000C63B7D /* GGM_UIView.m */,
+				853949DA1B9E025A00790DCC /* GGM_UIView+Hexagons.h */,
+				853949DB1B9E025A00790DCC /* GGM_UIView+Hexagons.m */,
 				F0AA4C351B0D7FA2002AD7B4 /* GGM_UIView+Triangles.h */,
 				F0AA4C361B0D7FA2002AD7B4 /* GGM_UIView+Triangles.m */,
 				85EF376718F337C000C63B7D /* GGM_UIViewIsometric.h */,
@@ -351,6 +356,7 @@
 				85EF376A18F337C000C63B7D /* GGM_HexView.m in Sources */,
 				85EF376B18F337C000C63B7D /* GGM_UIView.m in Sources */,
 				85EF374118F334C100C63B7D /* GGMEx_ViewController.m in Sources */,
+				853949DC1B9E025A00790DCC /* GGM_UIView+Hexagons.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

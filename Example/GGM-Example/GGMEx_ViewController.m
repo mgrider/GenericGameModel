@@ -66,7 +66,7 @@
 		// if we have an old one, let's clean it up
 		[self.gameView removeFromSuperview];
 	}
-	// init the new gameView (hard-coding this centered)
+	// init the new gameView (hard-coding this frame centered iPad)
 	self.gameView = [[GGMEx_View alloc] initWithFrame:CGRectMake(0.0f, ((1024.0f-768.0f) / 2.0f), 768.0f, 768.0f)];
 	[self.view addSubview:self.gameView];
 
