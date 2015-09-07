@@ -71,10 +71,10 @@
 	[self.view addSubview:self.gameView];
 
 	// set the type of subviews
-	[self.gameView setGridType:self.viewType];
 	if (self.viewType == GGM_GRIDTYPE_TRIANGLE) {
 		self.gameView.allowIrregularTriangles = YES;
 	}
+	[self.gameView setGridType:self.viewType];
 
 	// setup the views
 	[self.gameView setGame:self.gameModel];
@@ -84,6 +84,9 @@
 
 	// tell it to recognize drags
 	[self.gameView setRecognizesDrags:YES];
+
+	// optionally drag continuously
+//	[self.gameView setShouldDragContinuous:YES];
 
 	// refresh the views
 	[self.gameView refreshViewPositionsAndStates];

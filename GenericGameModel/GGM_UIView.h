@@ -64,6 +64,7 @@
 - (void)handleDragStart;
 - (void)handleDragEnd;
 - (void)handleDragContinue;
+- (void)handleDragContinuous;
 - (GGM_Direction)dragDirection;
 - (BOOL)dragAllowedInDirection:(GGM_Direction)direction fromX:(int)x andY:(int)y;
 // long pressing

@@ -136,7 +136,8 @@
 		horizontalOffset = (horizontalOffset > 10.0f) ? 10.0f : horizontalOffset;
 		horizontalOffset = (horizontalOffset < -10.0f) ? -10.0f : horizontalOffset;
 	}
-	[view setFrame:CGRectMake(((self.gridPixelWidth*self.dragCurrentX)+horizontalOffset), ((self.gridPixelHeight*self.dragCurrentY)+verticalOffset), view.frame.size.width, view.frame.size.height)];
+	CGPoint pixelPoint = [self pixelPointForX:self.dragX andY:self.dragY];
+	[view setFrame:CGRectMake(pixelPoint.x+horizontalOffset, pixelPoint.y+verticalOffset, self.gridPixelWidth, self.gridPixelHeight)];
 }
 
 - (GGM_Direction)dragDirection

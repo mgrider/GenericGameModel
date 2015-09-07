@@ -97,8 +97,32 @@
 	}
 }
 
+- (void)handleDragContinuous
+{
+	[super handleDragContinuous];
+	if (self.gridType == GGM_GRIDTYPE_TEXTLABEL)
+	{
+		if (self.dragCurrentX != self.dragX ||
+			self.dragCurrentY != self.dragY)
+		{
+			[self setTextStateForX:self.dragCurrentX andY:self.dragCurrentY byAppendingString:@"\ndrag-through"];
+		}
+	}
+	else {
+		[self.game setStateAtX:self.dragCurrentX andY:self.dragCurrentY toState:GGMEx_State_4];
+		[self refreshViewForX:self.dragCurrentX andY:self.dragCurrentY];
+	}
+}
+
 - (void)handleDragEnd
 {
+	if (self.shouldDragContinuous) {
+		CGPoint startPoint = [self coordinatePointForPixelPoint:self.dragPointBegan];
+		[self refreshViewForX:startPoint.x andY:startPoint.y];
+		if (self.gridType == GGM_GRIDTYPE_TEXTLABEL) {
+			[self setTextStateForX:startPoint.x andY:startPoint.y byAppendingString:@"\ndrag-started"];
+		}
+	}
 	if (self.gridType == GGM_GRIDTYPE_TEXTLABEL) {
 		[self setTextStateForX:self.dragX andY:self.dragY byAppendingString:@"\ndrag-ended"];
 	}
