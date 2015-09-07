@@ -34,6 +34,10 @@ GenericGameModel is available under the MIT license. See the LICENSE file for mo
 
 Unfortunately, the first few versions of this library pretty regularly broke the previous API. Additionally, they weren't using the propper semantic versioning.
 
+## 4.0.0
+
+Added `GGM_UIView+Hexagons` category. Made the `GGM_UIView` `shouldDragContinuous` property a little more automagical. (You can uncomment a line in `GGMEx_ViewController` to test it out. Very minor API changes, but enough to bump the version, probably.
+
 ## 3.1.1
 
 Added less weird hex grid type `GGM_GRIDTYPE_HEX_SQUARE`.
