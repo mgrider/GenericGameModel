@@ -534,6 +534,10 @@
 
 - (void)setupInitialGridViewArrayShared
 {
+	if (self.gridViewArray)
+	{
+		[self removeSubviewsFromGridViewArray];
+	}
 	self.gridViewArray = [NSMutableArray arrayWithCapacity:self.game.gridHeight];
 	NSMutableArray *subarray;
 	int gameState = 0;
@@ -553,9 +557,21 @@
 	}
 }
 
+- (void)removeSubviewsFromGridViewArray
+{
+	for (NSMutableArray *subarray in self.gridViewArray)
+	{
+		for (UIView *view in subarray)
+		{
+			[view removeFromSuperview];
+		}
+	}
+	[self.gridViewArray removeAllObjects];
+}
+
 - (void)setGridType:(GGM_GridType)gridType
 {
-	BOOL needsSetup = (gridType != _gridType) || (! self.gridViewArray);
+	BOOL needsSetup = (gridType != _gridType) && self.game;
 	_gridType = gridType;
 	if (needsSetup)
 	{
