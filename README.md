@@ -36,7 +36,7 @@ Unfortunately, the first few versions of this library pretty regularly broke the
 
 ## 4.0.0
 
-Added `GGM_UIView+Hexagons` category. Made the `GGM_UIView` `shouldDragContinuous` property a little more automagical. (You can uncomment a line in `GGMEx_ViewController` to test it out. Very minor API changes, but enough to bump the version, probably.
+Added `GGM_UIView+Hexagons` category. Made the `GGM_UIView` `shouldDragContinuous` property a little more automagical. (You can uncomment a line in `GGMEx_ViewController` to test it out.) Very minor API changes, but enough to bump the version, probably.
 
 ## 3.1.1
 
