@@ -42,7 +42,7 @@ Added `GGM_UIView+Hexagons` category. Made the `GGM_UIView` `shouldDragContinuou
 
 Added less weird hex grid type `GGM_GRIDTYPE_HEX_SQUARE`.
 
-## 3.0.0 (tag 3.0.0)
+## 3.0.0 (tag 0.0.3)
 
 Added support for triangular grids. More API changes.
 
