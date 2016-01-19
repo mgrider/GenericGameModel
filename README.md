@@ -17,7 +17,7 @@ If you don't want to use Cocoapods, you may instead simply copy all the files in
 
 To run the example project; clone the repo, and run `pod install` from the Example directory first.
 
-Generally speaking, you should subclass `GGM_BaseModel` and `GGM_UIView` (or any of its subclasses). See the example project.
+Generally speaking, you should subclass `GGM_BaseModel` and `GGM_UIView`. See the example project.
 
 
 ## Author
@@ -33,6 +33,10 @@ GenericGameModel is available under the MIT license. See the LICENSE file for mo
 # CHANGELOG
 
 Unfortunately, the first few versions of this library pretty regularly broke the previous API. Additionally, they weren't using the propper semantic versioning.
+
+## 4.0.3
+
+Added support for Apple TV to the podspec.
 
 ## 4.0.0
 
