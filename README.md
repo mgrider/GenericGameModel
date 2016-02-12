@@ -10,7 +10,7 @@ it simply add the following line to your Podfile:
 
     pod "GenericGameModel"
 
-If you don't want to use Cocoapods, you may instead simply copy all the files in the GenericGameModel/ folder into your project, but note that there is one requirement, the excellent BaseModel class by Nick Lockwood, which you may find here: https://github.com/nicklockwood/BaseModel
+If you don't want to use CocoaPods, you may instead simply copy all the files in the GenericGameModel/ folder into your project, but note that there is one requirement, the excellent BaseModel class by Nick Lockwood, which you may find here: https://github.com/nicklockwood/BaseModel
 
 
 ## Usage
